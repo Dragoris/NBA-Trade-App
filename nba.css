@@ -1,0 +1,16 @@
+ul {
+	list-style: none;
+	padding: 0;
+}
+#left-list {
+	width: 50%;
+	float: left;
+}
+#right-list {
+	width: 50%;
+	float: right;
+}
+.trade {
+	position: absolute;
+	bottom: 500px;
+}
