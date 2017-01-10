@@ -1,25 +1,17 @@
-var config = {
-    apiKey: "AIzaSyDK1AVLnaVMyRCENBhqYaM4A3ksu2COK88",
-    authDomain: "nba-trade-app.firebaseapp.com",
-    databaseURL: "https://nba-trade-app.firebaseio.com",
-    storageBucket: "nba-trade-app.appspot.com",
-    messagingSenderId: "356411871802"
-  };
-  firebase.initializeApp(config);
+function generateTrade() {
 
-$(document).ready(function() {
-	console.log('hi')
-})
-
-$('.trade').on('click', function(){
-	
 	var team1;
 	var team2;
+	var players1 = {};
+	var players2 = {};
+	team1Vorp = 0;
+	team2Vorp = 0;
 
 	var randomProperty = function (obj) {
 	    var keys = Object.keys(obj)
 	    return obj[keys[ keys.length * Math.random() << 0]];
 	};
+
 
 	(function getTeams() {
 		var team1Temp = randomProperty(nba);
@@ -34,14 +26,12 @@ $('.trade').on('click', function(){
 		}
 	})();
 
+
 	(function getPlayers() {
-		var players1 = {};
-		var players2 = {};
-		team1Vorp = 0;
-		team2Vorp = 0;
 
 		(function getTeamOne() {
-			var oneThroughFour = Math.floor(Math.random() * (4 - 1 + 1)) + 1;
+			var oneThroughFour = Math.floor(Math.random() * (3) + 1);
+			console.log(oneThroughFour)
 			//pick players for team 1
 			for (var i = 0; i < oneThroughFour; i++) {
 				var select1 = randomProperty(team1);
@@ -60,16 +50,14 @@ $('.trade').on('click', function(){
 				players1 = {};
 				getTeamOne();
 			}
-
 		})();
 
 		function getTeamTwo() {
 			var safty = 0;
-			var oneThroughFour = Math.random() * (4 - 1) + 1;
-			var i = oneThroughFour;
+			var i = 1;
 
 			while (i) {
-				i--
+				i--;
 				//pick player
 				var select2 = randomProperty(team2);
 				
@@ -84,37 +72,51 @@ $('.trade').on('click', function(){
 					i++;
 
 					//prevents edge case where team2 is 
-					//unable to reach value of team1
+					//unable to ever reach value of team1
 					safty++;
 					if (safty > 50) { //reset
-						console.log('TOOOOOO MANY', players1, team1Vorp, players2, team2Vorp);
 						getPlayers();
 					}
 
 				}else {
 					console.log('good trade', team1Vorp, team2Vorp, players1, players2);
 
-					render();
-
-					return {players1, players2};
+					renderTrade();					
 				}
 			}
 		};
-
-		function render() {
-			//reset
-			$('.player').remove();
-			//print team 1
-			var template1 = Handlebars.compile($("#players").html());
-			var compileTemplate1 = template1(players1);
-			$('#left-list').append(compileTemplate1);
-			//print team 2
-			var template2 = Handlebars.compile($("#players2").html());
-			var compileTemplate2 = template2(players2);
-			$('#right-list').append(compileTemplate2);			
-		};
 		
 	})();
+
+	function renderTrade() {
+		//reset
+		$('.player').remove();
+		$('.voting').children().remove();
+		
+		//print team 1
+		var template1 = Handlebars.compile($("#players").html());
+		var compileTemplate1 = template1(players1);
+		$('#left-list').append(compileTemplate1);
+		
+		//print team 2
+		var template2 = Handlebars.compile($("#players2").html());
+		var compileTemplate2 = template2(players2);
+		$('#right-list').append(compileTemplate2);
+		
+		//print voting buttons
+		$oneWins = $('<button class="onewins">Team One Wins!</button>');
+		$twoWins = $('<button class="twowins">Team Two Wins!</button>');
+		$realistic = $('<button class="realistic">Realistic Trade</button>');
+
+		$('.voting').append($oneWins, $twoWins, $realistic);
+	};
+};
+
+
+
+
+$('.trade').on('click', function(){
+	generateTrade();
 });
 
 
