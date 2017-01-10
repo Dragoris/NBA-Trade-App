@@ -5,13 +5,62 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-		<ul id="left-list"></ul>
-		<ul id="right-list"></ul>
+	<ul id="left-list"></ul>
+		<script id="players" type="text/x-handlebars-template">
+	        <li class="player">
+	        	<h1>Team One</h1>
+	            	{{#each this}}
+	            <img class="portrait" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
+	            <div class="info">
+	                Name: {{Name}}
+	                Number: {{No}}
+	                Postion: {{Pos}}
+	                Age: {{Age}}
+	                Salary: {{Salary}}
+	            </div>
+	            <div class="stats">
+	            	FG%: {{FG}}						
+	            	REB: {{TRB}}
+					AST: {{AST}}
+					STL: {{STL}}
+					BLK: {{BLK}}
+					PTS: {{PTS}}
+	            </div>
+	            {{/each}}
+	        </li>
+   		</script>
+
+	<ul id="right-list"></ul>
+		<script id="players2" type="text/x-handlebars-template">
+	       <li class="player">
+	        	<h1>Team Two</h1>
+	            	{{#each this}}
+	            <img class="portrait" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
+	            <div class="info">
+	                Name: {{Name}}
+	                Number: {{No}}
+	                Postion: {{Pos}}
+	                Age: {{Age}}
+	                Salary: {{Salary}}
+	            </div>
+	            <div class="stats">
+	            	FG%: {{FG}}						
+	            	REB: {{TRB}}
+					AST: {{AST}}
+					STL: {{STL}}
+					BLK: {{BLK}}
+					PTS: {{PTS}}
+	            </div>
+	            {{/each}}
+	        </li>
+   		</script>
 	<button class="trade">Generate a Trade</button>
 
 
-	<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="crossorigin="anonymous"></script>
+	
+	<script type="text/javascript" src="handlebars-v4.0.5.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
+	<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="crossorigin="anonymous"></script>
     <script type="text/javascript" src="nbaJSON.js"></script>
     <script type="text/javascript" src="nba.js"></script>
     <link rel="stylesheet" type="text/css" href="nba.css"></link>

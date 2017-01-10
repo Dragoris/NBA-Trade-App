@@ -48,7 +48,7 @@ $('.trade').on('click', function(){
 				if (select1.VORP > 0) players1[select1.Name] = select1;
 				else i--;
 			};
-			//add up team1 Vorp
+			//add up team1 value
 			for (var stats in players1) {
 				team1Vorp += players1[stats].VORP
 			};
@@ -87,29 +87,31 @@ $('.trade').on('click', function(){
 					//unable to reach value of team1
 					safty++;
 					if (safty > 50) { //reset
-						console.log('TOOOOOO MANY', players1, team1Vorp, players2, team2Vorp)
+						console.log('TOOOOOO MANY', players1, team1Vorp, players2, team2Vorp);
 						getPlayers();
 					}
-					
+
 				}else {
-					console.log('good trade', team1Vorp, team2Vorp, players1, players2)
+					console.log('good trade', team1Vorp, team2Vorp, players1, players2);
+
 					render();
-					return {players1, players2}
+
+					return {players1, players2};
 				}
-				
 			}
 		};
 
 		function render() {
-			$('li').remove();
-			$('li').remove();
-
-			for (prop in players1) {
-				$('#left-list').append('<li>' +prop+'</li>')
-				};
-			for (prop in players2) {
-				$('#right-list').append('<li>' +prop+'</li>')
-			};
+			//reset
+			$('.player').remove();
+			//print team 1
+			var template1 = Handlebars.compile($("#players").html());
+			var compileTemplate1 = template1(players1);
+			$('#left-list').append(compileTemplate1);
+			//print team 2
+			var template2 = Handlebars.compile($("#players2").html());
+			var compileTemplate2 = template2(players2);
+			$('#right-list').append(compileTemplate2);			
 		};
 		
 	})();
