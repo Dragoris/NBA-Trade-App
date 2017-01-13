@@ -5,7 +5,7 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-	<ul id="left-list"></ul>
+	<ul id="left-list">
 		<script id="players" type="text/x-handlebars-template">
 	        <li class="player">
 	        	<h1>Team One</h1>
@@ -29,8 +29,8 @@
 	            {{/each}}
 	        </li>
    		</script>
-
-	<ul id="right-list"></ul>
+   	</ul>
+	<ul id="right-list">
 		<script id="players2" type="text/x-handlebars-template">
 	       <li class="player">
 	        	<h1>Team Two</h1>
@@ -54,10 +54,25 @@
 	            {{/each}}
 	        </li>
    		</script>
+   	</ul>
    	<div class="voting"></div>
 	<button class="trade">Generate a Trade</button>
-
-
+	
+	<ul class="board"></ul>
+		<script id="trade-board" type="text/x-handlebars-template">
+	        <li class="listed-trade1">
+	        	<div class="left">
+	        		{{#each this.team1}}		        
+		        		{{this.Name}}
+		        	{{/each}}
+		        </div>
+	        	<div class="right">
+	        		{{#each this.team2}}
+		        		{{this.Name}}        	
+        			{{/each}}
+        		</div>
+        	</li>
+   		</script>
 	
 	<script type="text/javascript" src="handlebars-v4.0.5.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
