@@ -2,17 +2,17 @@ ul {
 	list-style: none;
 	padding: 0;
 }
-#left-list {
+.team-one {
 	width: 50%;
 	float: left;
 }
-#right-list {
+.team-two {
 	width: 50%;
 	float: right;
 }
 .trade {
 	position: absolute;
-	bottom: 500px;
+	bottom: 570px;
 }
 .right {
 	float: right;

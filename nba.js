@@ -88,20 +88,21 @@ function generateTrade() {
 	})();
 
 	function renderTrade() {
-		// $messageListElement.attr('data-id', msg)
+		
 		//reset
-		$('.player').remove();
+		$('.team-one').remove();
+		$('.team-two').remove();
 		$('.voting').children().remove();
+
+		//add logos and format
+		players1["logo"] = team1.Logo;
+		players2["logo"] = team2.Logo;
+		currentTrade = {players1, players2};
 		
-		//print team 1
-		var template1 = Handlebars.compile($("#players").html());
-		var compileTemplate1 = template1(players1);
-		$('#left-list').append(compileTemplate1);
-		
-		//print team 2
-		var template2 = Handlebars.compile($("#players2").html());
-		var compileTemplate2 = template2(players2);
-		$('#right-list').append(compileTemplate2);
+		//print teams
+		var tradeTemplate = Handlebars.compile($("#current-trade").html());
+		var compileTradeTemplate = tradeTemplate(currentTrade);
+		$('#display-trade').append(compileTradeTemplate);		
 		
 		//print voting buttons
 		var $oneWins = $('<button class="onewins">Team One Wins!</button>');
@@ -120,7 +121,7 @@ function generateTrade() {
 var currentTrade;
 
 $('.trade').on('click', function (){
-	currentTrade = generateTrade();
+	generateTrade();
 });
 
 
@@ -154,33 +155,46 @@ $(document).ready(function() {
 
 	$('.voting').on('click', '.realistic', function (){
 		console.log('vote', currentTrade)
-		if (oneVote||twoVote) {
+		if (oneVote) {
 			tradeReference.push({
 				teamOne: currentTrade.players1,
 				teamTwo: currentTrade.players2,
-				oneVote: oneVote,
-				twoVote: twoVote
+				flaged: 0,
+				votesOne: 1,
+				votesTwo: 0
 			})
-		}else console.log('you need to vote first!')
+		}else if (twoVote) {
+			tradeReference.push({
+				teamOne: currentTrade.players1,
+				teamTwo: currentTrade.players2,
+				flaged: 0,
+				votesOne: 0,
+				votesTwo: 1
+			})
+		}
+		else console.log('you need to vote first!')
 	});
 
 	tradeData.ref('trades').on('value', function (results) {
 		var $tradeBoard = $('.trade-board');
-		var allTrades = results.val();
-		
+		var data = results.val();
 
-		for (var trade in allTrades) {
+		for (var trade in data) {
 
 			var team1 = {};
 			var team2 = {};
 
-			var team1List = Object.keys(allTrades[trade].teamOne).forEach(function (player) {
-				team1[player] = allTrades[trade].teamOne[player];
+			Object.keys(data[trade].teamOne).forEach(function (player) {
+				team1[player] = data[trade].teamOne[player];
 			});
+			team1['votes'] = data[trade].votesOne;
+			team1['flagged'] = data[trade].flagged;
 
-			var team2List = Object.keys(allTrades[trade].teamTwo).forEach(function (player) {
-				team2[player] = allTrades[trade].teamTwo[player];
+			Object.keys(data[trade].teamTwo).forEach(function (player) {
+				team2[player] = data[trade].teamTwo[player];
 			});
+			team2['votes'] = data[trade].votesTwo;
+			team1['flagged'] = data[trade].flagged;
 
 			var finalOutput = {team1, team2};
 
@@ -191,3 +205,5 @@ $(document).ready(function() {
 		}
 	})
 });
+
+

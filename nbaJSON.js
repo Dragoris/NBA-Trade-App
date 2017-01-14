@@ -1,5 +1,6 @@
 var nba ={
       "GSW" : {
+        "Logo": "GSW",
          "AndersonVarejao": {
             "Name": "Anderson Varejao",
             "No": 21,
@@ -229,6 +230,7 @@ var nba ={
          //end GSW
          //////////////////////////////////////////////////////////////////////////////////
       "LAC" : {
+        "Logo": "LAC",
          "AlanAnderson": {
             "Pos": "SF",
             "No": 9,
@@ -334,10 +336,10 @@ var nba ={
             "VORP": -0.1,
             "Pic": "stonedi01"
          },
-         "J.J.Redick": {
+         "JJ Redick": {
             "Pos": "SG",
             "No": 4,
-            "Name": "J.J. Redick",
+            "Name": "JJ Redick",
             "Age": 32,
             "FG": 0.466,
             "TRB": 1.8,
@@ -443,6 +445,7 @@ var nba ={
        // end LAC
       ////////////////////////////////////////////////////////////////////////////////////////////
       "SAC" : {
+        "Logo" : "SAC",
          "AnthonyTolliver": {
             "Name": "Anthony Tolliver",
             "FIELD3": 43,
@@ -673,6 +676,7 @@ var nba ={
        // end SAC
       ////////////////////////////////////////////////////////////////////////////////////////////
       "LAL" : {
+        "Logo" : "LAL",
          "BrandonIngram": {
             "Pos": "SF",
             "Name": "Brandon Ingram",
@@ -763,9 +767,9 @@ var nba ={
             "VORP": 0.5,
             "Salary": "$3,267,120 "
          },
-         "LarryNanceJr.": {
+         "LarryNanceJr": {
             "Pos": "PF",
-            "Name": "Larry Nance Jr.",
+            "Name": "Larry Nance Jr",
             "Pic": "nancela02",
             "No": 7,
             "Age": 24,
@@ -903,6 +907,7 @@ var nba ={
        // end LAL
       /////////////////////////////////////////////////////////////////////////////////////////
       "PHO" : {
+        "Logo" : "PHO",
          "AlanWilliams": {
             "Pos": "PF",
             "No": 15,
@@ -1068,10 +1073,10 @@ var nba ={
             "VORP": -0.4,
             "Salary": "$2,941,440 "
          },
-         "P.J.Tucker": {
+         "PJ Tucker": {
             "Pos": "SF",
             "No": 17,
-            "Name": "P.J. Tucker",
+            "Name": "PJ Tucker",
             "Pic": "tuckepj01",
             "Age": 31,
             "FG": 0.395,
@@ -1083,10 +1088,10 @@ var nba ={
             "VORP": 0.4,
             "Salary": "$5,300,000 "
          },
-         "T.J.Warren": {
+         "TJ Warren": {
             "Pos": "SF",
             "No": 12,
-            "Name": "T.J. Warren",
+            "Name": "TJ Warren",
             "Pic": "warretj01",
             "Age": 23,
             "FG": 0.433,
@@ -1133,6 +1138,7 @@ var nba ={
        // end PHO
       /////////////////////////////////////////////////////////////////////////////////////////
       "OKC" : {
+        "Logo" : "OKC",
          "AlexAbrines": {
             "Pos": "SG",
             "No": 8,
@@ -1333,6 +1339,7 @@ var nba ={
        // end OKC
       /////////////////////////////////////////////////////////////////////////////////////////
       "UTA" : {
+        "Logo" : "UTA",
          "AlecBurks": {
             "Pos": "SG",
             "No": 10,
@@ -1563,6 +1570,7 @@ var nba ={
        // end UTA
       /////////////////////////////////////////////////////////////////////////////////////////
       "DEN" : {
+        "Logo" : "DEN",
          "DaniloGallinari": {
             "Pos": "SF",
             "No": 8,
@@ -1793,6 +1801,7 @@ var nba ={
        // end DEN
       /////////////////////////////////////////////////////////////////////////////////////////
       "POR" : {
+        "Logo" : "POR",
          "Al-FarouqAminu": {
             "Pos": "SF",
             "No": 8,
@@ -1823,10 +1832,10 @@ var nba ={
             "VORP": -0.1,
             "Salary": "$18,500,000 "
          },
-         "C.J.McCollum": {
+         "CJ McCollum": {
             "Pos": "SG",
             "No": 3,
-            "Name": "C.J. McCollum",
+            "Name": "CJ McCollum",
             "Pic": "mccolcj01",
             "Age": 25,
             "FG": 0.479,
@@ -2008,6 +2017,7 @@ var nba ={
       // end POR
       /////////////////////////////////////////////////////////////////////////////////////////
       "MIN" : {
+        "Logo" : "MIN",
          "AdreianPayne": {
             "Pos": "PF",
             "No": 33,
@@ -2223,6 +2233,7 @@ var nba ={
       // end MIN
       /////////////////////////////////////////////////////////////////////////////////////////
       "SAS" : {
+        "Logo" : "SAS",
          "BrynForbes": {
             "Pos": "SG",
             "No": 11,
@@ -2453,6 +2464,7 @@ var nba ={
       // end SAS
       /////////////////////////////////////////////////////////////////////////////////////////
       "HOU" : {
+        "Logo" : "HOU",
          "ChinanuOnuaku": {
             "Pos": "PF",
             "No": 21,
@@ -2528,10 +2540,10 @@ var nba ={
             "VORP": 4.1,
             "Salary": "$26,540,100 "
          },
-         "K.J.McDaniels": {
+         "KJ McDaniels": {
             "Pos": "SF",
             "No": 32,
-            "Name": "K.J. McDaniels",
+            "Name": "KJ McDaniels",
             "Pic": "mcdankj01",
             "Age": 23,
             "FG": 0.431,
@@ -2668,6 +2680,7 @@ var nba ={
       // end HOU
       /////////////////////////////////////////////////////////////////////////////////////////
       "MEM" : {
+        "Logo" : "MEM",
          "AndrewHarrison": {
             "Pos": "SG",
             "No": 5,
@@ -2898,6 +2911,7 @@ var nba ={
       // end MEM
       /////////////////////////////////////////////////////////////////////////////////////////
       "NOP" : {
+        "Logo" : "NOP",
          "AlexisAjinca": {
             "Pos": "C",
             "No": 42,
@@ -3113,10 +3127,11 @@ var nba ={
       // end NOP
       /////////////////////////////////////////////////////////////////////////////////////////
       "DAL" : {
-         "A.J.Hammons": {
+        "Logo" : "DAL",
+         "AJ Hammons": {
             "Pos": "C",
             "No": 20,
-            "Name": "A.J. Hammons",
+            "Name": "AJ Hammons",
             "Pic": "hammoaj01",
             "Age": 24,
             "FG": 0.409,
@@ -3233,10 +3248,10 @@ var nba ={
             "VORP": 0,
             "Salary": "$22,116,750 "
          },
-         "J.J.Barea": {
+         "JJ Barea": {
             "Pos": "PG",
             "No": 5,
-            "Name": "J.J. Barea",
+            "Name": "JJ Barea",
             "Pic": "bareajo01",
             "Age": 32,
             "FG": 0.41,
@@ -3343,6 +3358,7 @@ var nba ={
       // end DAL
       /////////////////////////////////////////////////////////////////////////////////////////
       "TOR" : {
+        "Logo" : "TOR",
          "BrunoCaboclo": {
             "Pos": "SF",
             "No": 20,
@@ -3543,6 +3559,7 @@ var nba ={
       // end TOR
       /////////////////////////////////////////////////////////////////////////////////////////
       "BOS" : {
+        "Logo" : "BOS",
          "AlHorford": {
             "Name": "Al Horford",
             "Pic": "horfoal01",
@@ -3773,6 +3790,7 @@ var nba ={
       // end BOS
       /////////////////////////////////////////////////////////////////////////////////////////
       "NYK" : {
+        "Logo" : "NYK",
          "BrandonJennings": {
             "Pos": "PG",
             "No": 3,
@@ -4003,6 +4021,7 @@ var nba ={
       // end NYK
       /////////////////////////////////////////////////////////////////////////////////////////
       "BRK" : {
+        "Logo" : "BRK",
          "AnthonyBennett": {
             "Pos": "PF",
             "No": 13,
@@ -4218,6 +4237,7 @@ var nba ={
       // end BRK
       /////////////////////////////////////////////////////////////////////////////////////////
       "PHI" : {
+        "Logo" : "PHI",
          "Dario Saric": {
             "Pos": "PF",
             "No": 9,
@@ -4398,10 +4418,10 @@ var nba ={
             "VORP": -0.1,
             "Salary": "$1,333,420 "
          },
-         "T.J. McConnell": {
+         "TJ McConnell": {
             "Pos": "PG",
             "No": 1,
-            "Name": "T.J. McConnell",
+            "Name": "TJ McConnell",
             "Pic": "mccontj01",
             "Age": 24,
             "FG": 0.437,
@@ -4433,6 +4453,7 @@ var nba ={
       // end PHI
       /////////////////////////////////////////////////////////////////////////////////////////
       "CLE" : {
+        "Logo" : "CLE",
          "ChanningFrye": {
             "Pos": "C",
             "No": 8,
@@ -4493,10 +4514,10 @@ var nba ={
             "VORP": 0.5,
             "Salary": "$9,700,000 "
          },
-         "J.R.Smith": {
+         "JR Smith": {
             "Pos": "SG",
             "No": 5,
-            "Name": "J.R. Smith",
+            "Name": "JR Smith",
             "Pic": "smithjr01",
             "Age": 31,
             "FG": 0.337,
@@ -4648,6 +4669,7 @@ var nba ={
       // end CLE
       /////////////////////////////////////////////////////////////////////////////////////////
       "MIL" : {
+        "Logo" : "MIL",
          "GiannisAntetokounmpo": {
             "Pos": "SG",
             "No": 34,
@@ -4863,6 +4885,7 @@ var nba ={
       // end MIL
       /////////////////////////////////////////////////////////////////////////////////////////
       "IND" : {
+        "Logo" : "IND",
          "AaronBrooks": {
             "Pos": "PG",
             "No": 0,
@@ -4893,10 +4916,10 @@ var nba ={
             "VORP": -0.2,
             "Salary": "$10,230,179 "
          },
-         "C.J.Miles": {
+         "CJ Miles": {
             "Pos": "SF",
             "No": 0,
-            "Name": "C.J. Miles",
+            "Name": "CJ Miles",
             "Pic": "milescj01",
             "Age": 29,
             "FG": 0.434,
@@ -5093,6 +5116,7 @@ var nba ={
       // end IND
       /////////////////////////////////////////////////////////////////////////////////////////
      "CHI" : {
+        "Logo" : "CHI",
          "BobbyPortis": {
             "Pos": "PF",
             "No": 5,
@@ -5258,10 +5282,10 @@ var nba ={
             "VORP": -0.1,
             "Salary": "$750,000 "
          },
-         "R.J.Hunter": {
+         "RJ Hunter": {
             "Pos": "SG",
             "No": 31,
-            "Name": "R.J. Hunter",
+            "Name": "RJ Hunter",
             "Pic": "hunterj01",
             "Age": 23,
             "FG": 0,
@@ -5323,6 +5347,7 @@ var nba ={
       // end CHI
       /////////////////////////////////////////////////////////////////////////////////////////
       "DET" : {
+        "Logo" : "DET",
          "AndreDrummond": {
             "Pos": "C",
             "No": 0,
@@ -5553,6 +5578,7 @@ var nba ={
       // end DET
       /////////////////////////////////////////////////////////////////////////////////////////
       "CHO" : {
+        "Logo" : "CHO",
          "AaronHarrison": {
             "Pos": "SG",
             "No": 9,
@@ -5783,6 +5809,7 @@ var nba ={
       // end CHO
       /////////////////////////////////////////////////////////////////////////////////////////
       "ATL" : {
+        "Logo" : "ATL",
          "DeAndre'Bembry": {
             "Pos": "SF",
             "No": 95,
@@ -5998,6 +6025,7 @@ var nba ={
       // end ATL
       /////////////////////////////////////////////////////////////////////////////////////////
       "WAS" : {
+        "Logo" : "WAS",
          "AndrewNicholson": {
             "Pos": "PF",
             "No": 44,
@@ -6228,6 +6256,7 @@ var nba ={
       // end WAS
       /////////////////////////////////////////////////////////////////////////////////////////
       "ORL" : {
+        "Logo" : "ORL",
          "AaronGordon": {
             "Pos": "SF",
             "No": 0,
@@ -6273,10 +6302,10 @@ var nba ={
             "VORP": 0.2,
             "Salary": "$17,000,000 "
          },
-         "C.J.Watson": {
+         "CJ Watson": {
             "Pos": "PG",
             "No": 32,
-            "Name": "C.J. Watson",
+            "Name": "CJ Watson",
             "Pic": "watsocj01",
             "Age": 32,
             "FG": 0.289,
@@ -6288,10 +6317,10 @@ var nba ={
             "VORP": -0.3,
             "Salary": "$5,000,000 "
          },
-         "C.J.Wilcox": {
+         "CJ Wilcox": {
             "Pos": "SG",
             "No": 23,
-            "Name": "C.J. Wilcox",
+            "Name": "CJ Wilcox",
             "Pic": "wilcocj01",
             "Age": 26,
             "FG": 0.294,
@@ -6303,10 +6332,10 @@ var nba ={
             "VORP": -0.1,
             "Salary": "$1,209,680 "
          },
-         "D.J.Augustin": {
+         "DJ Augustin": {
             "Pos": "PG",
             "No": 14,
-            "Name": "D.J. Augustin",
+            "Name": "DJ Augustin",
             "Pic": "augusdj01",
             "Age": 29,
             "FG": 0.403,
@@ -6458,6 +6487,7 @@ var nba ={
       // end ORL
       /////////////////////////////////////////////////////////////////////////////////////////
       "MIA" : {
+        "Logo" : "MIA",
          "DerrickWilliams": {
             "Pos": "PF",
             "No": 22,

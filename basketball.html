@@ -5,11 +5,13 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-	<ul id="left-list">
-		<script id="players" type="text/x-handlebars-template">
-	        <li class="player">
+	<ul id="display-trade">
+		<script id="current-trade" type="text/x-handlebars-template">
+	        <li class="team-one">
+	        	<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players1.logo}}}-2017.png></img>
 	        	<h1>Team One</h1>
-	            	{{#each this}}
+	        {{#each this.players1}}
+	        	{{#unless @last}}
 	            <img class="portrait" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
 	            <div class="info">
 	                Name: {{Name}}
@@ -26,15 +28,14 @@
 					BLK: {{BLK}}
 					PTS: {{PTS}}
 	            </div>
-	            {{/each}}
+	            {{/unless}}
+	       {{/each}}	
 	        </li>
-   		</script>
-   	</ul>
-	<ul id="right-list">
-		<script id="players2" type="text/x-handlebars-template">
-	       <li class="player">
+	        <li class="team-two">
+	        	<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players2.logo}}}-2017.png></img>
 	        	<h1>Team Two</h1>
-	            	{{#each this}}
+	        {{#each this.players2}}
+	        	{{#unless @last}}
 	            <img class="portrait" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
 	            <div class="info">
 	                Name: {{Name}}
@@ -51,29 +52,35 @@
 					BLK: {{BLK}}
 					PTS: {{PTS}}
 	            </div>
-	            {{/each}}
+	            {{/unless}}
+            {{/each}}
 	        </li>
    		</script>
    	</ul>
+	<ul id="right-list"></ul>
+
    	<div class="voting"></div>
+
 	<button class="trade">Generate a Trade</button>
 	
-	<ul class="board"></ul>
+	<ul class="board">
+		<h1>Popular Community Trades</h1>
 		<script id="trade-board" type="text/x-handlebars-template">
 	        <li class="listed-trade1">
+
 	        	<div class="left">
-	        		{{#each this.team1}}		        
-		        		{{this.Name}}
+	        		{{#each this.team1}}
+		        		{{Name}}
 		        	{{/each}}
 		        </div>
 	        	<div class="right">
 	        		{{#each this.team2}}
-		        		{{this.Name}}        	
+		        		{{Name}}    	
         			{{/each}}
         		</div>
         	</li>
    		</script>
-	
+	</ul>
 	<script type="text/javascript" src="handlebars-v4.0.5.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 	<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="crossorigin="anonymous"></script>
