@@ -176,6 +176,8 @@ $(document).ready(function() {
 	});
 
 	tradeData.ref('trades').on('value', function (results) {
+		$('.listed-trade').remove();
+		
 		var $tradeBoard = $('.trade-board');
 		var data = results.val();
 

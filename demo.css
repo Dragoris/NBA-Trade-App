@@ -1,0 +1,76 @@
+* {
+	border: 0;
+	margin: 0;
+}
+.app {
+	display: flex;
+	width: 100%;
+	height: 100vh;
+}
+.current-trade {
+	background-color: red;
+	flex: 3;
+	display: flex;
+	flex-direction: column;
+}
+.previous-trades {
+	background-color: blue;
+	flex: 1;
+}
+.lt-wrapper {
+	flex-direction: column;
+}
+.listed-trade {
+	display: flex;
+	flex: 1;
+	align-items: center;
+	background-color: green;
+	border: 1px solid black;
+}
+.logo {
+	flex: 1;
+	background-color: grey;
+	height: 20%;
+	text-align: center;
+}
+.teams-wrapper {
+	background-color: orange;
+	display: flex;
+	flex: 6;
+}
+.voting {
+	display: flex;
+	flex: 1;
+	background-color: yellow;
+	align-items: center;
+  	justify-content: center;
+}
+.trade-button {
+	flex: 1;
+	display: flex;
+	max-width: 205px;
+	min-height: 50px;
+	background-color: black;
+	color: white;
+	align-items: center;
+	justify-content: center;
+}
+.team {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+}
+.player {
+	flex: 1;
+	background-color: tan;
+	display: flex;
+	flex-direction: column;
+}
+.pic {
+	flex: 3;
+	background-color: cyan;
+}
+.stats {
+	flex: 1;
+	background-color: cadetblue;
+}
