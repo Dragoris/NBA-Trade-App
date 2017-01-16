@@ -5,84 +5,123 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
-	<ul id="display-trade">
-		<script id="current-trade" type="text/x-handlebars-template">
-	        <li class="team-one">
-	        	<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players1.logo}}}-2017.png></img>
-	        	<h1>Team One</h1>
-	        {{#each this.players1}}
-	        	{{#unless @last}}
-	            <img class="portrait" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
-	            <div class="info">
-	                Name: {{Name}}
-	                Number: {{No}}
-	                Postion: {{Pos}}
-	                Age: {{Age}}
-	                Salary: {{Salary}}
-	            </div>
-	            <div class="stats">
-	            	FG%: {{FG}}						
-	            	REB: {{TRB}}
-					AST: {{AST}}
-					STL: {{STL}}
-					BLK: {{BLK}}
-					PTS: {{PTS}}
-	            </div>
-	            {{/unless}}
-	       {{/each}}	
-	        </li>
-	        <li class="team-two">
-	        	<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players2.logo}}}-2017.png></img>
-	        	<h1>Team Two</h1>
-	        {{#each this.players2}}
-	        	{{#unless @last}}
-	            <img class="portrait" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
-	            <div class="info">
-	                Name: {{Name}}
-	                Number: {{No}}
-	                Postion: {{Pos}}
-	                Age: {{Age}}
-	                Salary: {{Salary}}
-	            </div>
-	            <div class="stats">
-	            	FG%: {{FG}}						
-	            	REB: {{TRB}}
-					AST: {{AST}}
-					STL: {{STL}}
-					BLK: {{BLK}}
-					PTS: {{PTS}}
-	            </div>
-	            {{/unless}}
-            {{/each}}
-	        </li>
-   		</script>
-   	</ul>
-	<ul id="right-list"></ul>
+	<div class="app">
+		<div class="current-trade">
+			<div id="teams-wrapper">
+				<script id="current-trade" type="text/x-handlebars-template">
+			         <div class="team-two">
+			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players2.logo}}}-2017.png></img>
+			        	{{#each this.players2}}
+			        		{{#unless @last}}
+			        	<div class="player">
+			        		<div class="portrait">
+					            <img class="pic" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
+					            <div class="info">
+									<strong>{{Name}} </br></strong>
+					                {{Pos}} </br>
+					                Age: {{Age}} </br>
+					                Salary: {{Salary}}
+					            </div>
+					        </div>
+					        <table class="categories">
+					        	<thead>
+					        		<tr>
+					        			<th>PTS</th>
+					        			<th>FG%</th>
+					        			<th>REB</th>
+					        			<th>AST</th>
+					        			<th>STL</th>
+					        			<th>BLK</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+				            			<td>{{PTS}}</td>
+				            			<td>{{FG}}</td>
+				            			<td>{{TRB}}</td>
+				            			<td>{{AST}}</td>
+				            			<td>{{STL}}</td>
+				            			<td>{{BLK}}</td>
+				            		</tr>
+				            	</tbody>
+				            </table>
+				        </div>
+			            	{{/unless}}
+			       	{{/each}}	
+			        </div>
+			        <div class="team-one">
+			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players1.logo}}}-2017.png></img>
+			        	{{#each this.players1}}
+			        		{{#unless @last}}
+			        	<div class="player">
+			        		<div class="portrait">
+					            <img class="pic" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
+					            <div class="info">
+					            	<strong>{{Name}} </br></strong>
+					                {{Pos}} </br>
+					                Age: {{Age}} </br>
+					                Salary: {{Salary}}
+					            </div>
+					        </div>
+					        <table class="categories">
+					        	<thead>
+					        		<tr>
+					        			<th>PTS</th>
+					        			<th>FG%</th>
+					        			<th>REB</th>
+					        			<th>AST</th>
+					        			<th>STL</th>
+					        			<th>BLK</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+				            			<td>{{PTS}}</td>
+				            			<td>{{FG}}</td>
+				            			<td>{{TRB}}</td>
+				            			<td>{{AST}}</td>
+				            			<td>{{STL}}</td>
+				            			<td>{{BLK}}</td>
+				            		</tr>
+				            	</tbody>
+				            </table>
+				        </div>
+			            	{{/unless}}
+			       	{{/each}}	
+			        </div>
+		   		</script>
+			</div>
+			<div class="voting">
+				<div class="vote-buttons"></div>
+				<div class="trade-button">TRADE</div>
+			</div>
+		</div>
+   
+		
 
-   	<div class="voting"></div>
+		<div class="previous-trades">
+			<h1>Popular Community Trades</h1>
+			<script id="trade-board" type="text/x-handlebars-template">
+		        <div class="listed-trade">
+		        	<div class="logo-wrapper">
+		        		<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team1.logo}}}-2017.png></img>
+		        		<span class="votes"> Votes : {{this.team1.votes}} </span>
+		        	</div>
+	        		<span class="vs"> Vs.</span>
+	        		<div class="logo-wrapper">
+		        		<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team2.logo}}}-2017.png></img>
+		        		<span class="votes"> Votes : {{this.team2.votes}} </span>
+	        		</div>
+	        	</div>
+	   		</script>
+	   	</div>
+	</div>
 
-	<button class="trade">Generate a Trade</button>
-	
-	<ul class="board">
-		<h1>Popular Community Trades</h1>
-		<script id="trade-board" type="text/x-handlebars-template">
-	        <li class="listed-trade">
 
-	        	<div class="left">
-	        		<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team1.logo}}}.png></img></img>
-	        		{{#each this.team1}}
-		        		{{Name}}
-		        	{{/each}}
-		        </div>
-	        	<div class="right">
-	        	<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team2.logo}}}.png></img>
-	        		{{#each this.team2}}
-		        		{{Name}}    	
-        			{{/each}}
-        		</div>
-        	</li>
-   		</script>
-	</ul>
+
+
+
+
 	<script type="text/javascript" src="handlebars-v4.0.5.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/3.6.4/firebase.js"></script>
 	<script   src="https://code.jquery.com/jquery-3.1.1.js"   integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="crossorigin="anonymous"></script>

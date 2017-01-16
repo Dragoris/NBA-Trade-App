@@ -92,7 +92,8 @@ function generateTrade() {
 		//reset
 		$('.team-one').remove();
 		$('.team-two').remove();
-		$('.voting').children().remove();
+		$('.vote-buttons').children().remove();
+		$('trade-button').remove();
 
 		//add logos and format
 		players1["logo"] = team1.Logo;
@@ -102,14 +103,18 @@ function generateTrade() {
 		//print teams
 		var tradeTemplate = Handlebars.compile($("#current-trade").html());
 		var compileTradeTemplate = tradeTemplate(currentTrade);
-		$('#display-trade').append(compileTradeTemplate);		
+		$('#teams-wrapper').append(compileTradeTemplate);		
 		
 		//print voting buttons
-		var $oneWins = $('<button class="onewins">Team One Wins!</button>');
-		var $twoWins = $('<button class="twowins">Team Two Wins!</button>');
-		var $realistic = $('<button class="realistic">Realistic Trade</button>');
-
-		$('.voting').append($oneWins, $twoWins, $realistic);
+		var $trade = $('<button class="trade-button"> TRADE</button>')
+		var $oneWins = $('<button class="wins">Team One Wins!</button>');
+		var $twoWins = $('<button class="wins">Team Two Wins!</button>');
+		var $realistic = $('<button class="realistic">Submit</button>');
+		var $h1 = $('<h1 class="question"> Which Team Won This Trade?</h1>')
+		
+		$('.voting').append($h1);
+		$('.vote-buttons').append($oneWins, $realistic, $twoWins);
+		
 	};
 
 	return {players1, players2}
@@ -119,8 +124,7 @@ function generateTrade() {
 
 
 var currentTrade;
-
-$('.trade').on('click', function (){
+$('.voting').on('click', '.trade-button', function () {
 	generateTrade();
 });
 
@@ -178,7 +182,6 @@ $(document).ready(function() {
 	tradeData.ref('trades').on('value', function (results) {
 		$('.listed-trade').remove();
 		
-		var $tradeBoard = $('.trade-board');
 		var data = results.val();
 
 		for (var trade in data) {
@@ -203,7 +206,7 @@ $(document).ready(function() {
 			var boardTemplate = Handlebars.compile($("#trade-board").html());
 			var compiledBoard = boardTemplate(finalOutput);
 			
-			$('.board').append(compiledBoard);
+			$('.previous-trades').append(compiledBoard);
 		}
 	})
 });
