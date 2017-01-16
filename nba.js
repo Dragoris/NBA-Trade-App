@@ -94,6 +94,7 @@ function generateTrade() {
 		$('.team-two').remove();
 		$('.vote-buttons').children().remove();
 		$('trade-button').remove();
+		$('.question').remove();
 
 		//add logos and format
 		players1["logo"] = team1.Logo;
@@ -145,16 +146,14 @@ $(document).ready(function() {
 	var oneVote = false;
 	var twoVote = false;
 
-	$('.voting').on('click', '.onewins', function (){
+	$('.voting').on('click', '.wins', function (){
 		oneVote = true;
 		twoVote = false;
-		console.log('One Wins!');
 	})
 
-	$('.voting').on('click', '.twowins', function (){
+	$('.voting').on('click', '.wins', function (){
 		twoVote = true;
 		oneVote = false;
-		console.log('Two Wins!');
 	});
 
 	$('.voting').on('click', '.realistic', function (){
@@ -183,9 +182,7 @@ $(document).ready(function() {
 		$('.listed-trade').remove();
 		
 		var data = results.val();
-
 		for (var trade in data) {
-
 			var team1 = {};
 			var team2 = {};
 
@@ -202,13 +199,25 @@ $(document).ready(function() {
 			team1['flagged'] = data[trade].flagged;
 
 			var finalOutput = {team1, team2};
+				finalOutput['id'] = trade;
 
 			var boardTemplate = Handlebars.compile($("#trade-board").html());
 			var compiledBoard = boardTemplate(finalOutput);
 			
 			$('.previous-trades').append(compiledBoard);
+			
 		}
-	})
+	});
+
+	$('.previous-trades').on('click', '.listed-trade, .logo, .vs', function (e) {
+		var id = $(e.target).data('id');
+		 console.log('click', $(e.target).data('id'));
+
+		var thisTrade = tradeData.ref('trades').child(id).once('value').then( function (snapshot) {
+			return snapshot.val()
+		});
+		console.log(thisTrade);
+	});
 });
 
 

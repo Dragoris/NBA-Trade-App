@@ -93,7 +93,7 @@
 			</div>
 			<div class="voting">
 				<div class="vote-buttons"></div>
-				<div class="trade-button">TRADE</div>
+				<button class="trade-button">NEW TRADE</button>
 			</div>
 		</div>
    
@@ -102,15 +102,15 @@
 		<div class="previous-trades">
 			<h1>Popular Community Trades</h1>
 			<script id="trade-board" type="text/x-handlebars-template">
-		        <div class="listed-trade">
-		        	<div class="logo-wrapper">
-		        		<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team1.logo}}}-2017.png></img>
-		        		<span class="votes"> Votes : {{this.team1.votes}} </span>
+		        <div class="listed-trade" data-id="{{id}}">
+		        	<div class="logo-wrapper" data-id="{{id}}">
+		        		<img class="logo" data-id="{{id}}" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team1.logo}}}-2017.png></img>
+		        		<span class="votes" data-id="{{id}}"> Votes : {{this.team1.votes}} </span>
 		        	</div>
-	        		<span class="vs"> Vs.</span>
-	        		<div class="logo-wrapper">
-		        		<img class="logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team2.logo}}}-2017.png></img>
-		        		<span class="votes"> Votes : {{this.team2.votes}} </span>
+	        		<span class="vs" data-id="{{id}}"> Vs.</span>
+	        		<div class="logo-wrapper" data-id="{{id}}">
+		        		<img class="logo" data-id="{{id}}" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team2.logo}}}-2017.png></img>
+		        		<span class="votes" data-id="{{id}}"> Votes : {{this.team2.votes}} </span>
 	        		</div>
 	        	</div>
 	   		</script>
