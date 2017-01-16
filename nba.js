@@ -1,5 +1,9 @@
-function generateTrade() {
-
+function generateTrade(trade) {
+	if (trade) {
+		console.log('innnn')
+		renderTrade(trade);
+		return
+	}
 	var team1;
 	var team2;
 	var players1 = {};
@@ -87,7 +91,7 @@ function generateTrade() {
 		
 	})();
 
-	function renderTrade() {
+	function renderTrade(trade) {
 		
 		//reset
 		$('.team-one').remove();
@@ -97,10 +101,24 @@ function generateTrade() {
 		$('.question').remove();
 
 		//add logos and format
-		players1["logo"] = team1.Logo;
-		players2["logo"] = team2.Logo;
-		currentTrade = {players1, players2};
-		
+
+
+		if (trade) {
+
+			trade['players1'] = trade['teamOne'];
+			delete trade['teamOne'];
+
+			trade['players2'] = trade['teamTwo'];
+			delete trade['teamTwo'];
+
+			currentTrade = trade;
+			
+		}else {
+			players1["logo"] = team1.Logo;
+			players2["logo"] = team2.Logo;
+			currentTrade = {players1, players2};
+		}
+
 		//print teams
 		var tradeTemplate = Handlebars.compile($("#current-trade").html());
 		var compileTradeTemplate = tradeTemplate(currentTrade);
@@ -211,13 +229,14 @@ $(document).ready(function() {
 
 	$('.previous-trades').on('click', '.listed-trade, .logo, .vs', function (e) {
 		var id = $(e.target).data('id');
-		 console.log('click', $(e.target).data('id'));
 
-		var thisTrade = tradeData.ref('trades').child(id).once('value').then( function (snapshot) {
-			return snapshot.val()
+		$.get('https://nba-trade-app.firebaseio.com/trades/'+id+'.json', function( data ) {
+			console.log(data);
+			generateTrade(data);
+		
 		});
-		console.log(thisTrade);
 	});
+
 });
 
 

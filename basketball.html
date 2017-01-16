@@ -9,9 +9,9 @@
 		<div class="current-trade">
 			<div id="teams-wrapper">
 				<script id="current-trade" type="text/x-handlebars-template">
-			         <div class="team-two">
-			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players2.logo}}}-2017.png></img>
-			        	{{#each this.players2}}
+			         <div class="team-one">
+			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players1.logo}}}-2017.png></img>
+			        	{{#each this.players1}}
 			        		{{#unless @last}}
 			        	<div class="player">
 			        		<div class="portrait">
@@ -49,9 +49,9 @@
 			            	{{/unless}}
 			       	{{/each}}	
 			        </div>
-			        <div class="team-one">
-			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players1.logo}}}-2017.png></img>
-			        	{{#each this.players1}}
+			        <div class="team-two">
+			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players2.logo}}}-2017.png></img>
+			        	{{#each this.players2}}
 			        		{{#unless @last}}
 			        	<div class="player">
 			        		<div class="portrait">
