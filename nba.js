@@ -1,13 +1,14 @@
 function generateTrade(trade) {
+	//if passed a trade immediately render it 
 	if (trade) {
-		console.log('innnn')
 		renderTrade(trade);
 		return
 	}
+
 	var team1;
 	var team2;
-	var players1 = {};
-	var players2 = {};
+	var teamOne = {};
+	var teamTwo = {};
 	team1Vorp = 0;
 	team2Vorp = 0;
 
@@ -34,23 +35,23 @@ function generateTrade(trade) {
 	(function getPlayers() {
 
 		(function getTeamOne() {
-			var oneThroughFour = Math.floor(Math.random() * (3) + 1);
+			var oneThroughThree = Math.floor(Math.random() * (3) + 1);
 			//pick players for team 1
-			for (var i = 0; i < oneThroughFour; i++) {
+			for (var i = 0; i < oneThroughThree; i++) {
 				var select1 = randomProperty(team1);
-				if (select1.VORP > 0) players1[select1.Name] = select1;
+				if (select1.VORP > 0) teamOne[select1.Name] = select1;
 				else i--;
 			};
 			//add up team1 value
-			for (var stats in players1) {
-				team1Vorp += players1[stats].VORP
+			for (var stats in teamOne) {
+				team1Vorp += teamOne[stats].VORP
 			};
 			//filter weak combos
 			if (team1Vorp > 0.4) {
 				getTeamTwo();
 			}else{ //reset
 				team1Vorp = 0;
-				players1 = {};
+				teamOne = {};
 				getTeamOne();
 			}
 		})();
@@ -66,25 +67,26 @@ function generateTrade(trade) {
 				
 				// add players until balanced
 				if (select2.VORP > 0 && team2Vorp + select2.VORP <= 0.2 + team1Vorp) {
-					players2[select2.Name] = select2;
+					teamTwo[select2.Name] = select2;
 					team2Vorp += select2.VORP;
 				}
 
-				//when teams are balanced render them
-				if (team1Vorp > team2Vorp + 0.2 || team2Vorp > team1Vorp + 0.2 || team2Vorp > team1Vorp + 0.2 || team1Vorp > team2Vorp + 0.2) {
-					i++;
+				//when teams are balanced add logos and votes
+				//and then render them
+				if (Math.abs((team1Vorp - team2Vorp) <= 0.2)) {
+					console.log('good trade', team1Vorp, team2Vorp, teamOne, teamTwo);
 
+					renderTrade();
+
+				}else {
+					i++;
 					//prevents edge case where team2 is 
 					//unable to ever reach value of team1
 					safty++;
 					if (safty > 50) { //reset
 						getPlayers();
 					}
-
-				}else {
-					console.log('good trade', team1Vorp, team2Vorp, players1, players2);
-
-					renderTrade();					
+										
 				}
 			}
 		};
@@ -93,31 +95,27 @@ function generateTrade(trade) {
 
 	function renderTrade(trade) {
 		
-		//reset
+		//reset DOM
 		$('.team-one').remove();
 		$('.team-two').remove();
 		$('.vote-buttons').children().remove();
 		$('trade-button').remove();
 		$('.question').remove();
 
-		//add logos and format
-
-
+		
 		if (trade) {
-
-			trade['players1'] = trade['teamOne'];
-			delete trade['teamOne'];
-
-			trade['players2'] = trade['teamTwo'];
-			delete trade['teamTwo'];
-
 			currentTrade = trade;
-			
-		}else {
-			players1["logo"] = team1.Logo;
-			players2["logo"] = team2.Logo;
-			currentTrade = {players1, players2};
-		}
+
+		}else {//add logos and format
+			currentTrade = {teamOne, teamTwo};
+
+			currentTrade['logoOne'] = team1.Logo;
+			currentTrade['votesOne'] = 0;
+
+			currentTrade['logoTwo'] = team2.Logo;
+			currentTrade['votesTwo'] = 0;
+		};
+
 
 		//print teams
 		var tradeTemplate = Handlebars.compile($("#current-trade").html());
@@ -126,17 +124,17 @@ function generateTrade(trade) {
 		
 		//print voting buttons
 		var $trade = $('<button class="trade-button"> TRADE</button>')
-		var $oneWins = $('<button class="wins">Team One Wins!</button>');
-		var $twoWins = $('<button class="wins">Team Two Wins!</button>');
-		var $realistic = $('<button class="realistic">Submit</button>');
+		var $oneWins = $('<button class="oneWins">Team One Wins!</button>');
+		var $twoWins = $('<button class="twoWins">Team Two Wins!</button>');
+		var $submit = $('<button class="submit">Submit</button>');
 		var $h1 = $('<h1 class="question"> Which Team Won This Trade?</h1>')
 		
 		$('.voting').append($h1);
-		$('.vote-buttons').append($oneWins, $realistic, $twoWins);
+		$('.vote-buttons').append($oneWins, $submit, $twoWins);
 		
 	};
 
-	return {players1, players2}
+	return {teamOne, teamTwo}
 
 };
 
@@ -160,37 +158,55 @@ firebase.initializeApp(config);
 var tradeData = firebase.database();
 
 $(document).ready(function() {
+	
 	var tradeReference = tradeData.ref('trades');
 	var oneVote = false;
 	var twoVote = false;
 
-	$('.voting').on('click', '.wins', function (){
+	$('.voting').on('click', '.oneWins', function (){
 		oneVote = true;
 		twoVote = false;
 	})
 
-	$('.voting').on('click', '.wins', function (){
+	$('.voting').on('click', '.twoWins', function (){
 		twoVote = true;
 		oneVote = false;
 	});
 
-	$('.voting').on('click', '.realistic', function (){
+	$('.voting').on('click', '.submit', function (){
 		console.log('vote', currentTrade)
-		if (oneVote) {
+		if (currentTrade.id) {
+			if (oneVote) {
+				tradeData.ref('trades').child(currentTrade.id).update({
+				votesOne: currentTrade.votesOne + 1
+				})
+			}
+			if (twoVote) {
+				tradeData.ref('trades').child(currentTrade.id).update({
+				votesTwo: currentTrade.votesTwo + 1
+				})
+			}
+		}
+		else if (oneVote) {
 			tradeReference.push({
-				teamOne: currentTrade.players1,
-				teamTwo: currentTrade.players2,
 				flaged: 0,
+				teamOne: currentTrade.teamOne,
+				teamTwo: currentTrade.teamTwo,
+				logoOne: currentTrade.logoOne,
+				logoTwo: currentTrade.logoTwo,
 				votesOne: 1,
 				votesTwo: 0
+
 			})
 		}else if (twoVote) {
 			tradeReference.push({
-				teamOne: currentTrade.players1,
-				teamTwo: currentTrade.players2,
 				flaged: 0,
-				votesOne: 0,
-				votesTwo: 1
+				teamOne: currentTrade.teamOne,
+				teamTwo: currentTrade.teamTwo,
+				logoOne: currentTrade.logoOne,
+				logoTwo: currentTrade.logoTwo,
+				votesTwo: 1,
+				votesOne: 0
 			})
 		}
 		else console.log('you need to vote first!')
@@ -200,6 +216,7 @@ $(document).ready(function() {
 		$('.listed-trade').remove();
 		
 		var data = results.val();
+
 		for (var trade in data) {
 			var team1 = {};
 			var team2 = {};
@@ -207,17 +224,19 @@ $(document).ready(function() {
 			Object.keys(data[trade].teamOne).forEach(function (player) {
 				team1[player] = data[trade].teamOne[player];
 			});
-			team1['votes'] = data[trade].votesOne;
-			team1['flagged'] = data[trade].flagged;
 
 			Object.keys(data[trade].teamTwo).forEach(function (player) {
 				team2[player] = data[trade].teamTwo[player];
 			});
-			team2['votes'] = data[trade].votesTwo;
-			team1['flagged'] = data[trade].flagged;
 
 			var finalOutput = {team1, team2};
+
 				finalOutput['id'] = trade;
+				finalOutput['flagged'] = data[trade].flagged;
+				finalOutput['votesOne'] = data[trade].votesOne;
+				finalOutput['votesTwo'] = data[trade].votesTwo;
+				finalOutput['logoOne'] = data[trade].logoOne;
+				finalOutput['logoTwo'] = data[trade].logoTwo;
 
 			var boardTemplate = Handlebars.compile($("#trade-board").html());
 			var compiledBoard = boardTemplate(finalOutput);
@@ -229,12 +248,18 @@ $(document).ready(function() {
 
 	$('.previous-trades').on('click', '.listed-trade, .logo, .vs', function (e) {
 		var id = $(e.target).data('id');
-
-		$.get('https://nba-trade-app.firebaseio.com/trades/'+id+'.json', function( data ) {
-			console.log(data);
-			generateTrade(data);
-		
+		tradeData.ref('/trades/' + id).once('value').then(function(data) {
+		  var snapshot = data.val();
+		  snapshot['id'] = id;
+		  console.log('snapshot', snapshot)
+		  generateTrade(snapshot);
 		});
+		// $.get('https://nba-trade-app.firebaseio.com/trades/'+id+'.json', function( data ) {
+		// 	data['id'] = id;
+		// 	console.log(data)
+		// 	generateTrade(data);
+		
+		// });
 	});
 
 });

@@ -5,14 +5,19 @@
     	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 <body>
+	<header>
+		<input id="username" type="text" placeholder="Username">
+		<input id="password" type="password" placeholder="Password">
+		<button class="log-in">Log in</button>
+		<button class="sign-up">Sign up</button>
+	</header>
 	<div class="app">
 		<div class="current-trade">
 			<div id="teams-wrapper">
 				<script id="current-trade" type="text/x-handlebars-template">
 			         <div class="team-one">
-			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players1.logo}}}-2017.png></img>
-			        	{{#each this.players1}}
-			        		{{#unless @last}}
+			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.logoOne}}}-2017.png></img>
+			        	{{#each this.teamOne}}
 			        	<div class="player">
 			        		<div class="portrait">
 					            <img class="pic" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
@@ -46,13 +51,11 @@
 				            	</tbody>
 				            </table>
 				        </div>
-			            	{{/unless}}
 			       	{{/each}}	
 			        </div>
 			        <div class="team-two">
-			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.players2.logo}}}-2017.png></img>
-			        	{{#each this.players2}}
-			        		{{#unless @last}}
+			        	<img class="trade-logo" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.logoTwo}}}-2017.png></img>
+			        	{{#each this.teamTwo}}
 			        	<div class="player">
 			        		<div class="portrait">
 					            <img class="pic" src=https:d2cwpp38twqe55.cloudfront.net/req/201612101/images/players/{{{Pic}}}.png></img>
@@ -86,7 +89,6 @@
 				            	</tbody>
 				            </table>
 				        </div>
-			            	{{/unless}}
 			       	{{/each}}	
 			        </div>
 		   		</script>
@@ -104,13 +106,13 @@
 			<script id="trade-board" type="text/x-handlebars-template">
 		        <div class="listed-trade" data-id="{{id}}">
 		        	<div class="logo-wrapper" data-id="{{id}}">
-		        		<img class="logo" data-id="{{id}}" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team1.logo}}}-2017.png></img>
-		        		<span class="votes" data-id="{{id}}"> Votes : {{this.team1.votes}} </span>
+		        		<img class="logo" data-id="{{id}}" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.logoOne}}}-2017.png></img>
+		        		<span class="votes" data-id="{{id}}"> Votes : {{this.votesOne}} </span>
 		        	</div>
 	        		<span class="vs" data-id="{{id}}"> Vs.</span>
 	        		<div class="logo-wrapper" data-id="{{id}}">
-		        		<img class="logo" data-id="{{id}}" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.team2.logo}}}-2017.png></img>
-		        		<span class="votes" data-id="{{id}}"> Votes : {{this.team2.votes}} </span>
+		        		<img class="logo" data-id="{{id}}" src=https:d2p3bygnnzw9w3.cloudfront.net/req/201612211/tlogo/bbr/{{{this.logoTwo}}}-2017.png></img>
+		        		<span class="votes" data-id="{{id}}"> Votes : {{this.votesTwo}} </span>
 	        		</div>
 	        	</div>
 	   		</script>

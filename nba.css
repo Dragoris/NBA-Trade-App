@@ -127,7 +127,33 @@ td, th {
 	order: 2;
 	margin: 3% 0 0 0;
 }
-.wins {
+.oneWins {
+	border-top: 1px solid #0e2b0d;
+
+	background: -moz-linear-gradient(top, #3e9c62, #2b7d30);
+	background: -ms-linear-gradient(top, #3e9c62, #2b7d30);
+	background: -o-linear-gradient(top, #3e9c62, #2b7d30);
+	padding: 20px 40px;
+	-webkit-border-radius: 40px;
+	-moz-border-radius: 40px;
+	border-radius: 40px;
+	-moz-box-shadow: rgba(0,0,0,1) 0 1px 0;
+	box-shadow: rgba(0,0,0,1) 0 1px 0;
+	font-size: 15px;
+	font-family: Georgia, serif;
+	text-decoration: none;
+	vertical-align: middle;
+	cursor: pointer;
+	}
+.oneWins:hover {
+   background: #fff;
+   color: #000;
+}
+
+.oneWins:active {
+	font-size: 14px;
+}
+.twoWins {
 	border-top: 1px solid #0e2b0d;
 	/* background: #2b7d30; */
 	/* background: -webkit-gradient(linear, left top, left bottom, from(#3e9c62), to(#2b7d30)); */
@@ -150,15 +176,15 @@ td, th {
 	vertical-align: middle;
 	cursor: pointer;
 	}
-.wins:hover {
+.twoWins:hover {
    background: #fff;
    color: #000;
 }
 
-.wins:active {
+.twoWins:active {
 	font-size: 14px;
 }
-.realistic {
+.submit {
 	border: 1px solid #1a0d29;
 	background: -moz-linear-gradient(top, #3e4e9c, #2c2d7d);
 	background: -ms-linear-gradient(top, #3e4e9c, #2c2d7d);
@@ -175,11 +201,11 @@ td, th {
 	vertical-align: middle;
 	cursor: pointer;
 }
-.realistic:hover {
+.submit:hover {
 	background: #fff;
    color: #000;
 }
-.realistic:active {
+.submit:active {
 	font-size: 17px;
 }
 
