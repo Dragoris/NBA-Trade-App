@@ -155,18 +155,22 @@ var config = {
   };
 firebase.initializeApp(config);
 
-var tradeData = firebase.database();
+
 
 $(document).ready(function() {
-	
-	var tradeReference = tradeData.ref('trades');
+
+	var nbaApp = firebase.database();
+	var tradesRef = nbaApp.ref('trades');
+	var usersRef = nbaApp.ref('users');
+	var auth = firebase.auth();
+
 	var oneVote = false;
 	var twoVote = false;
 
 	$('.voting').on('click', '.oneWins', function (){
 		oneVote = true;
 		twoVote = false;
-	})
+	});
 
 	$('.voting').on('click', '.twoWins', function (){
 		twoVote = true;
@@ -177,18 +181,18 @@ $(document).ready(function() {
 		console.log('vote', currentTrade)
 		if (currentTrade.id) {
 			if (oneVote) {
-				tradeData.ref('trades').child(currentTrade.id).update({
+				tradesRef.child(currentTrade.id).update({
 				votesOne: currentTrade.votesOne + 1
 				})
 			}
 			if (twoVote) {
-				tradeData.ref('trades').child(currentTrade.id).update({
+				tradesRef.child(currentTrade.id).update({
 				votesTwo: currentTrade.votesTwo + 1
 				})
 			}
 		}
 		else if (oneVote) {
-			tradeReference.push({
+			tradesRef.push({
 				flaged: 0,
 				teamOne: currentTrade.teamOne,
 				teamTwo: currentTrade.teamTwo,
@@ -199,7 +203,7 @@ $(document).ready(function() {
 
 			})
 		}else if (twoVote) {
-			tradeReference.push({
+			tradesRef.push({
 				flaged: 0,
 				teamOne: currentTrade.teamOne,
 				teamTwo: currentTrade.teamTwo,
@@ -212,7 +216,7 @@ $(document).ready(function() {
 		else console.log('you need to vote first!')
 	});
 
-	tradeData.ref('trades').on('value', function (results) {
+	tradesRef.on('value', function (results) {
 		$('.listed-trade').remove();
 		
 		var data = results.val();
@@ -229,17 +233,17 @@ $(document).ready(function() {
 				team2[player] = data[trade].teamTwo[player];
 			});
 
-			var finalOutput = {team1, team2};
+			var output = {team1, team2};
 
-				finalOutput['id'] = trade;
-				finalOutput['flagged'] = data[trade].flagged;
-				finalOutput['votesOne'] = data[trade].votesOne;
-				finalOutput['votesTwo'] = data[trade].votesTwo;
-				finalOutput['logoOne'] = data[trade].logoOne;
-				finalOutput['logoTwo'] = data[trade].logoTwo;
+				output['id'] = trade;
+				output['flagged'] = data[trade].flagged;
+				output['votesOne'] = data[trade].votesOne;
+				output['votesTwo'] = data[trade].votesTwo;
+				output['logoOne'] = data[trade].logoOne;
+				output['logoTwo'] = data[trade].logoTwo;
 
 			var boardTemplate = Handlebars.compile($("#trade-board").html());
-			var compiledBoard = boardTemplate(finalOutput);
+			var compiledBoard = boardTemplate(output);
 			
 			$('.previous-trades').append(compiledBoard);
 			
@@ -248,20 +252,62 @@ $(document).ready(function() {
 
 	$('.previous-trades').on('click', '.listed-trade, .logo, .vs', function (e) {
 		var id = $(e.target).data('id');
-		tradeData.ref('/trades/' + id).once('value').then(function(data) {
-		  var snapshot = data.val();
+
+		tradeData.ref('/trades/' + id).once('value').then(function(snap) {
+		  var snapshot = snap.val();
 		  snapshot['id'] = id;
-		  console.log('snapshot', snapshot)
 		  generateTrade(snapshot);
 		});
-		// $.get('https://nba-trade-app.firebaseio.com/trades/'+id+'.json', function( data ) {
-		// 	data['id'] = id;
-		// 	console.log(data)
-		// 	generateTrade(data);
 		
-		// });
 	});
 
+
+	$('.log-in').on('click', function () {
+		var email = $('#email').val();
+		var pass = $('#password').val();
+
+		auth.signInWithEmailAndPassword(email, pass).catch(function (e) {
+			console.log(e)
+		});
+
+	});
+
+	$('.sign-up').on('click', function () {
+		var name = $('#name').val();
+		var email = $('#email').val();
+		var pass = $('#password').val();
+
+
+		auth.createUserWithEmailAndPassword(email, pass).catch(function (e) {
+
+			console.log(e, auth.currentUser)
+		});
+
+		usersRef.child(auth.currentUser.uid).set({
+			userName: name || auth.currentUser.email.replace(/@.*/, ''),
+			email: auth.currentUser.email,
+			points: 0
+
+		});
+		
+		
+
+	});
+	
+	$('.sign-out').on('click', function () {
+		auth.signOut();
+	})
+
+	auth.onAuthStateChanged(function (firebaseUser) {
+		if (firebaseUser) {
+			console.log(firebaseUser)
+		}else {
+			console.log('you need to log in')
+		}
+	})
 });
+
+
+
 
 
