@@ -132,6 +132,8 @@ function generateTrade(trade) {
 		$('.voting').append($h1);
 		$('.vote-buttons').append($oneWins, $submit, $twoWins);
 		
+		var $trade = $('<div class="comments-section"></div> ')
+		
 	};
 
 	return {teamOne, teamTwo}
@@ -160,10 +162,10 @@ firebase.initializeApp(config);
 $(document).ready(function() {
 
 	var nbaApp = firebase.database();
-	var tradesRef = nbaApp.ref('trades');
+	var totalTradesRef = nbaApp.ref('totalTrades');
+	var userTradesRef = nbaApp.ref('userTrades');
 	var usersRef = nbaApp.ref('users');
 	var auth = firebase.auth();
-
 	var oneVote = false;
 	var twoVote = false;
 
@@ -179,47 +181,61 @@ $(document).ready(function() {
 
 	$('.voting').on('click', '.submit', function (){
 		console.log('vote', currentTrade)
+		var info = {
+			author: auth.currentUser.displayName,
+			uid: auth.currentUser.uid,
+			voted: {},
+			flaged: 0,
+			teamOne: currentTrade.teamOne,
+			teamTwo: currentTrade.teamTwo,
+			logoOne: currentTrade.logoOne,
+			logoTwo: currentTrade.logoTwo
+		};
+
 		if (currentTrade.id) {
-			if (oneVote) {
-				tradesRef.child(currentTrade.id).update({
-				votesOne: currentTrade.votesOne + 1
-				})
-			}
-			if (twoVote) {
-				tradesRef.child(currentTrade.id).update({
-				votesTwo: currentTrade.votesTwo + 1
-				})
-			}
+			nbaApp.ref('/totalTrades/' + currentTrade.id).once('value').then(function(snap) {
+				if (!snap.val().voted[auth.currentUser.uid]) {
+					snap.val().voted[auth.currentUser.uid] = true;
+					if (oneVote) {
+						totalTradesRef.child(currentTrade.id).transaction(function(){
+						votesOne: currentTrade.votesOne + 1
+						});
+					}
+					if (twoVote) {
+						totalTradesRef.child(currentTrade.id).transaction(function(){
+						votesTwo: currentTrade.votesTwo + 1
+						});
+					}
+				}else console.log('you\'ve already voted on this trade')
+			})
 		}
 		else if (oneVote) {
-			tradesRef.push({
-				flaged: 0,
-				teamOne: currentTrade.teamOne,
-				teamTwo: currentTrade.teamTwo,
-				logoOne: currentTrade.logoOne,
-				logoTwo: currentTrade.logoTwo,
-				votesOne: 1,
-				votesTwo: 0
+			info['votesOne'] = 1;
+			info['votesTwo'] = 0;
+			info.voted[auth.currentUser.uid] = true;
 
-			})
+			var tradeKey = totalTradesRef.push().key;
+
+			nbaApp.ref('/totalTrades/' + tradeKey).set(info);
+			nbaApp.ref('/userTrades/' + auth.currentUser.uid + '/' + tradeKey ).set(info);
+
 		}else if (twoVote) {
-			tradesRef.push({
-				flaged: 0,
-				teamOne: currentTrade.teamOne,
-				teamTwo: currentTrade.teamTwo,
-				logoOne: currentTrade.logoOne,
-				logoTwo: currentTrade.logoTwo,
-				votesTwo: 1,
-				votesOne: 0
-			})
+			info['votesOne'] = 0;
+			info['votesTwo'] = 1;
+			info.voted[auth.currentUser.uid] = true;
+
+			var tradeKey = totalTradesRef.push().key;
+
+			nbaApp.ref('/totalTrades/' + tradeKey).set(info);
+			nbaApp.ref('/userTrades/' + auth.currentUser.uid + '/' + tradeKey ).set(info);
 		}
 		else console.log('you need to vote first!')
 	});
 
-	tradesRef.on('value', function (results) {
+	totalTradesRef.on('value', function (snap) {
 		$('.listed-trade').remove();
-		
-		var data = results.val();
+
+		var data = snap.val();
 
 		for (var trade in data) {
 			var team1 = {};
@@ -253,7 +269,7 @@ $(document).ready(function() {
 	$('.previous-trades').on('click', '.listed-trade, .logo, .vs', function (e) {
 		var id = $(e.target).data('id');
 
-		tradeData.ref('/trades/' + id).once('value').then(function(snap) {
+		nbaApp.ref('/totalTrades/' + id).once('value').then(function(snap) {
 		  var snapshot = snap.val();
 		  snapshot['id'] = id;
 		  generateTrade(snapshot);
@@ -279,21 +295,22 @@ $(document).ready(function() {
 
 
 		auth.createUserWithEmailAndPassword(email, pass).catch(function (e) {
+			console.log(e)
+		}).then(function () {
+			auth.currentUser.updateProfile({displayName: name || auth.currentUser.email.replace(/@.*/, '')});
 
-			console.log(e, auth.currentUser)
-		});
-
-		usersRef.child(auth.currentUser.uid).set({
-			userName: name || auth.currentUser.email.replace(/@.*/, ''),
+			usersRef.child(auth.currentUser.uid).set({
+			displayName: name || auth.currentUser.email.replace(/@.*/, ''),
 			email: auth.currentUser.email,
 			points: 0
 
+			});
 		});
 		
 		
 
 	});
-	
+
 	$('.sign-out').on('click', function () {
 		auth.signOut();
 	})
